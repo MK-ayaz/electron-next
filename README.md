@@ -116,7 +116,7 @@ My Workstation is an enterprise-grade desktop application built on modern web te
 ### Environment Setup
 1. **Clone Repository**
    ```bash
-   git clone (https://github.com/MK-ayaz/electron-next.git)
+   git clone https://github.com/MK-ayaz/electron-next.git
    cd my-workstation
    ```
 
