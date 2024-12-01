@@ -1,0 +1,209 @@
+.titleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  -webkit-app-region: drag;
+  user-select: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.appTitle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #ffffff;
+  opacity: 0.8;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.menuBar {
+  display: flex;
+  height: 100%;
+  -webkit-app-region: no-drag;
+  z-index: 1000;
+  margin-left: 2px;
+  gap: 2px;
+}
+
+.menuItem {
+  position: relative;
+  height: 100%;
+}
+
+.menuButton {
+  height: 100%;
+  padding: 0 10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  transition: all 0.2s ease;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.menuButton:hover,
+.menuButton.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.menuDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: #2d2d2d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  border-radius: 6px;
+  margin-top: 4px;
+  padding: 4px;
+  animation: dropdownFade 0.15s ease-out;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menuDropdownItem {
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.menuDropdownItem:hover {
+  background-color: #0066cc;
+  color: #ffffff;
+}
+
+.windowControls {
+  display: flex;
+  height: 100%;
+  -webkit-app-region: no-drag;
+  margin-left: auto;
+}
+
+.controlButton {
+  width: 46px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.controlButton:hover {
+  opacity: 1;
+}
+
+.minimizeButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.maximizeButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.closeButton:hover {
+  background-color: #e81123;
+}
+
+.closeButton:hover .iconWrapper {
+  transform: rotate(180deg);
+}
+
+.dragRegion {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.3px;
+}
+
+/* Custom scrollbar for dropdown menus */
+.menuDropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menuDropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menuDropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.menuDropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Separator line for menu items */
+.menuDropdownItem.separator {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+  padding: 0;
+  height: 1px;
+}
+
+/* Keyboard shortcuts in menu items */
+.menuDropdownItem .shortcut {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  margin-left: 20px;
+}
+
+/* Disabled menu items */
+.menuDropdownItem.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.menuDropdownItem.disabled:hover {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.85);
+}
