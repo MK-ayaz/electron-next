@@ -228,16 +228,11 @@ npm run test:e2e
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-## Documentation
+i just planning for VS Code Editor 
+if some one interasting into contact with me &#xe158;ayaz93872@gmail.com
 
-- [API Documentation](docs/API.md)
-- [Architecture Overview](docs/ARCHITECTURE.md)
-- [Security Guidelines](docs/SECURITY.md)
-- [Development Guide](docs/DEVELOPMENT.md)
 
 ---
 
