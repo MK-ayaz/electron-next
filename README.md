@@ -231,7 +231,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 
 i just planning for VS Code Editor 
-if some one interasting into contact with me &#xe158;ayaz93872@gmail.com
+if some one interasting into it contact with me 💌 ayaz93872@gmail.com
 
 
 ---
