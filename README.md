@@ -3,7 +3,6 @@
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Platform Support](https://img.shields.io/badge/platform-win%20|%20linux%20|%20mac-lightgrey)
 ![Node](https://img.shields.io/badge/node-%3E%3D%2014.0.0-green.svg)
 
@@ -223,12 +222,6 @@ npm run test:e2e
 - Time to Interactive: < 2s
 - First Contentful Paint: < 1s
 - Memory Usage: < 100MB
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-
 
 i just planning for VS Code Editor 
 if some one interasting into it contact with me 💌 ayaz93872@gmail.com
