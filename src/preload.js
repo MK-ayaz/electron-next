@@ -12,8 +12,8 @@ contextBridge.exposeInMainWorld('electron', {
   fileOperations: {
     newFile: () => ipcRenderer.invoke('file-new'),
     openFile: () => ipcRenderer.invoke('file-open'),
-    saveFile: () => ipcRenderer.invoke('file-save'),
-    saveFileAs: () => ipcRenderer.invoke('file-save-as'),
+    saveFile: (content) => ipcRenderer.invoke('file-save', content),
+    saveFileAs: (content) => ipcRenderer.invoke('file-save-as', content),
     exit: () => ipcRenderer.send('file-exit'),
   },
   appInfo: {

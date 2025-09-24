@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
 const isDev = process.env.NODE_ENV === 'development';
@@ -66,7 +66,9 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: preloadScript
+      preload: preloadScript,
+      webSecurity: true,
+      allowRunningInsecureContent: false
     }
   });
 
@@ -75,6 +77,24 @@ function createWindow() {
     : `file://${path.join(__dirname, '../out/index.html')}`;
 
   mainWindow.loadURL(startURL);
+
+  // Set Content Security Policy for development
+  if (isDev) {
+    mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+      callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          'Content-Security-Policy': [
+            "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: http://localhost:* ws://localhost:*; " +
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:*; " +
+            "style-src 'self' 'unsafe-inline' http://localhost:*; " +
+            "img-src 'self' data: http://localhost:*; " +
+            "connect-src 'self' http://localhost:* ws://localhost:*;"
+          ]
+        }
+      });
+    });
+  }
 
   if (isDev) {
     mainWindow.webContents.openDevTools();
@@ -102,66 +122,13 @@ function createWindow() {
     mainWindow.close();
   });
 
-  // File operations
-  ipcMain.handle('file-new', async () => {
-    currentFilePath = null;
-    return { success: true };
-  });
-
-  ipcMain.handle('file-open', async () => {
-    const { canceled, filePaths } = await electron.dialog.showOpenDialog(mainWindow, {
-      properties: ['openFile'],
-      filters: [
-        { name: 'Text Files', extensions: ['txt', 'md'] },
-        { name: 'All Files', extensions: ['*'] }
-      ]
-    });
-
-    if (!canceled && filePaths.length > 0) {
-      try {
-        const content = await fs.readFile(filePaths[0], 'utf8');
-        currentFilePath = filePaths[0];
-        return { success: true, content, filePath: currentFilePath };
+  // Wire up file operations using centralized handler
+  try {
+    const { fileOperations } = require('../main/fileOperations');
+    fileOperations(ipcMain, mainWindow);
       } catch (err) {
-        return { success: false, error: err.message };
-      }
-    }
-    return { success: false };
-  });
-
-  ipcMain.handle('file-save', async (event, content) => {
-    if (!currentFilePath) {
-      return ipcMain.handlers['file-save-as'](event, content);
-    }
-
-    try {
-      await fs.writeFile(currentFilePath, content, 'utf8');
-      return { success: true, filePath: currentFilePath };
-    } catch (err) {
-      return { success: false, error: err.message };
-    }
-  });
-
-  ipcMain.handle('file-save-as', async (event, content) => {
-    const { canceled, filePath } = await electron.dialog.showSaveDialog(mainWindow, {
-      defaultPath: currentFilePath,
-      filters: [
-        { name: 'Text Files', extensions: ['txt', 'md'] },
-        { name: 'All Files', extensions: ['*'] }
-      ]
-    });
-
-    if (!canceled && filePath) {
-      try {
-        await fs.writeFile(filePath, content, 'utf8');
-        currentFilePath = filePath;
-        return { success: true, filePath: currentFilePath };
-      } catch (err) {
-        return { success: false, error: err.message };
-      }
-    }
-    return { success: false };
-  });
+    console.error('Failed to initialize file operations:', err);
+  }
 
   ipcMain.handle('get-app-name', () => {
     const packageJson = require('../package.json');
@@ -171,6 +138,12 @@ function createWindow() {
   ipcMain.on('file-exit', () => {
     mainWindow.close();
   });
+}
+
+// Enable convenient debugging in development
+if (isDev) {
+  app.commandLine.appendSwitch('remote-debugging-port', '9222');
+  process.env.ELECTRON_ENABLE_LOGGING = process.env.ELECTRON_ENABLE_LOGGING || '1';
 }
 
 app.whenReady().then(createWindow);
