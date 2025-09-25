@@ -73,8 +73,8 @@ function createWindow() {
   });
 
   const startURL = isDev 
-    ? 'http://localhost:3000' 
-    : `file://${path.join(__dirname, '../out/index.html')}`;
+    ? 'http://localhost:5173' 
+    : `file://${path.join(__dirname, '../dist/index.html')}`;
 
   mainWindow.loadURL(startURL);
 
@@ -126,7 +126,7 @@ function createWindow() {
   try {
     const { fileOperations } = require('../main/fileOperations');
     fileOperations(ipcMain, mainWindow);
-      } catch (err) {
+  } catch (err) {
     console.error('Failed to initialize file operations:', err);
   }
 

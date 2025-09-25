@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MinimizeIcon, MaximizeIcon, CloseIcon } from './WindowIcons';
+import { MinimizeIcon, MaximizeIcon, CloseIcon } from './WindowIcons.jsx';
 import styles from './TitleBar.module.css';
 
 const TitleBar = () => {
@@ -137,7 +137,7 @@ const TitleBar = () => {
           break;
 
         case 'Save':
-          const content = ''; // Get this from your editor component
+          const content = '';
           const saveResult = await window.electron.fileOperations.saveFile(content);
           if (saveResult.success) {
             console.log('File saved:', saveResult.filePath);
@@ -145,7 +145,7 @@ const TitleBar = () => {
           break;
 
         case 'Save As...':
-          const saveAsContent = ''; // Get this from your editor component
+          const saveAsContent = '';
           const saveAsResult = await window.electron.fileOperations.saveFileAs(saveAsContent);
           if (saveAsResult.success) {
             console.log('File saved as:', saveAsResult.filePath);
@@ -233,4 +233,4 @@ const TitleBar = () => {
   );
 };
 
-export default TitleBar;
+export default TitleBar; 

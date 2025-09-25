@@ -5,16 +5,15 @@
   "description": "My Electron application description",
   "main": "src/main.js",
   "scripts": {
-    "dev": "concurrently \"next dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
-    "next:dev": "next dev",
-    "build": "next build && electron-builder",
-    "start": "next start & cross-env NODE_ENV=production electron .",
-    "lint": "next lint",
+    "dev": "concurrently \"npx vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
+    "build": "npx vite build",
+    "start": "cross-env NODE_ENV=production electron .",
+    "lint": "echo no-lint-configured",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "debug:main": "cross-env NODE_ENV=development ELECTRON_ENABLE_LOGGING=1 electron --inspect=9229 .",
-    "debug:next": "cross-env NODE_OPTIONS=--inspect next dev"
+    "debug:vite": "cross-env NODE_OPTIONS=--inspect npx vite"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.6.0",
@@ -24,15 +23,14 @@
     "@electron-forge/maker-zip": "^7.6.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.6.0",
     "@electron-forge/plugin-fuses": "^7.6.0",
-    "@electron-forge/plugin-webpack": "^7.6.0",
     "@electron/fuses": "^1.8.0",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "@types/node": "^24.5.2",
+    "@vitejs/plugin-react": "^5.0.3",
     "concurrently": "^9.1.0",
     "cross-env": "^7.0.3",
-    "css-loader": "^6.11.0",
     "electron": "33.2.1",
     "node-loader": "^2.1.0",
-    "style-loader": "^3.3.4",
+    "vite": "^7.1.7",
     "wait-on": "^8.0.1"
   },
   "keywords": [],
@@ -40,7 +38,6 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "next": "^15.5.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }

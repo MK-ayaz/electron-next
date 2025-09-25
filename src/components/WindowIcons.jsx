@@ -67,4 +67,4 @@ export const CloseIcon = () => (
       strokeLinecap="round"
     />
   </svg>
-);
+); 
